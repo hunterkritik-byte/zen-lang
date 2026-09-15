@@ -1,120 +1,130 @@
 # Zen
 
-**Zen** is a small, modern programming language designed around readable syntax and a deliberately simple core. Zen source files use the `.zen` extension and the command-line tool is `zen`.
+**Zen** is a small, readable programming language designed to grow into a practical general-purpose toolchain.
 
-> Status: **early development — 0.2.0**. The language is experimental and syntax may change before 1.0.
+Zen programs use the `.zen` extension and run with the `zen` command.
 
-## Features
+## Why Zen?
 
-- `.zen` source files
-- Lexer and parser with a typed AST
-- Variables and literals: strings, integers, booleans
-- Arithmetic: `+`, `-`, `*`, `/`
-- Comparisons: `==`, `!=`, `<`, `<=`, `>`, `>=`
-- `if` / `else` and `while`
-- Functions with parameters and `return`
-- Built-in `print(...)`
-- A standalone `zen` CLI
-- `zen check` syntax validation
-- Rust test suite and continuous integration
+Zen aims for a simple rule: **the language should be easy to read, easy to learn, and serious enough to build real software.**
 
-## Quick start
+The project is built from scratch in Rust, with a clean compiler architecture so the interpreter, type checker, formatter, package manager, and native compiler can evolve independently.
 
-### Build
-
-```bash
-cargo build --release
-```
-
-### Run
-
-```bash
-./target/release/zen run examples/hello.zen
-```
-
-### Check without running
-
-```bash
-./target/release/zen check examples/hello.zen
-```
-
-### CLI help
-
-```bash
-./target/release/zen help
-```
-
-## Example
+## Hello, Zen
 
 ```zen
-fn add(a, b) {
-    return a + b
-}
-
 fn main() {
-    let result = add(20, 22)
-
-    if result == 42 {
-        print("The answer is " + "42")
-    } else {
-        print("unexpected result")
-    }
+    let name = "Zen"
+    print("Hello from " + name)
 }
 ```
 
-## Architecture
+Run it:
+
+```bash
+cargo run -- run examples/hello.zen
+```
+
+Check it without executing:
+
+```bash
+cargo run -- check examples/hello.zen
+```
+
+## Language today
+
+The current development runtime supports:
+
+- `.zen` source files
+- functions and a `main` entry point
+- local variables
+- strings, integers, and booleans
+- arithmetic: `+`, `-`, `*`, `/`
+- string concatenation with `+`
+- comparisons: `==`, `!=`, `<`, `<=`, `>`, `>=`
+- `if` / `else`
+- `while` loops
+- function calls and return values
+- line comments with `//`
+- escaped strings (`\\n`, `\\t`, `\\r`, `\\"`, `\\\\`)
+- checked integer arithmetic and division-by-zero errors
+
+## Toolchain vision
+
+The goal is a complete Zen development experience:
 
 ```text
-.zen source
-    ↓
- Lexer
-    ↓
- Tokens
-    ↓
- Parser
-    ↓
- AST
-    ↓
- Runtime
-    ↓
- Program output
+zen run app.zen
+zen check app.zen
+zen build
+zen test
+zen fmt
+zen lint
+zen repl
+zen doc
+zen add package
 ```
 
-The compiler is intentionally split into public modules so the front end and runtime can later be reused by tooling, a formatter, REPL, language server, and package ecosystem.
+Planned platform components include:
+
+- a strong static type system with inference
+- generics and expressive data types
+- `Option` / `Result` error handling
+- arrays, maps, sets, and pattern matching
+- lexical scoping, closures, and first-class functions
+- modules and imports
+- a batteries-included standard library
+- formatter, linter, test runner, and language server
+- package manager and package registry
+- C FFI
+- bytecode VM and eventually native compilation
+- high-quality diagnostics with source locations and actionable messages
+
+## Project status
+
+**Early development — 0.2.x.**
+
+Zen is not yet a production compiler. Syntax and semantics can still change while the language foundation is being built. The project prioritizes correctness, tests, documentation, and a stable language specification before a 1.0 release.
+
+## Roadmap
+
+- [x] Lexer
+- [x] Parser and AST
+- [x] Variables and basic values
+- [x] Functions and `main`
+- [x] Arithmetic and comparisons
+- [x] Control flow
+- [x] Runtime error handling
+- [ ] Source spans and compiler diagnostics
+- [ ] Static type checker
+- [ ] Arrays and indexing
+- [ ] Maps and sets
+- [ ] Closures
+- [ ] Modules and imports
+- [ ] `Option` / `Result`
+- [ ] Standard library
+- [ ] Formatter and linter
+- [ ] `zen test` and REPL
+- [ ] Package manager
+- [ ] LSP / editor support
+- [ ] Bytecode VM
+- [ ] Native compiler backend
+- [ ] Stable language specification
+- [ ] 1.0 release
 
 ## Development
 
-Run the full local validation suite:
+Requirements:
+
+- Rust stable
+
+Build and test:
 
 ```bash
 cargo fmt --all -- --check
 cargo test --all-targets
 cargo build --release
 ```
-
-CI performs the same checks on pushes and pull requests.
-
-## Roadmap to 1.0
-
-- [x] Core lexer/parser/runtime
-- [x] Functions, control flow, arithmetic and comparisons
-- [x] CLI `run`, `check`, `help`, `version`
-- [ ] Arrays, maps and indexing
-- [ ] Modules and imports
-- [ ] Stronger type system and diagnostics
-- [ ] Standard library
-- [ ] Formatter
-- [ ] REPL
-- [ ] Language server / editor support
-- [ ] Package manager
-- [ ] Cross-platform release binaries
-- [ ] Python/PyPI distribution of the Zen toolchain
-- [ ] Native compiler backend
-- [ ] 1.0 language specification and compatibility guarantees
-
-## Releases and PyPI
-
-PyPI distribution will come **after the language and CLI stabilize**. The planned Python package will act as distribution/tooling around the Zen compiler and CLI; Zen itself is not a Python language implementation.
 
 ## License
 

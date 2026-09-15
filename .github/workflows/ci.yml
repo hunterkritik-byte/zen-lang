@@ -15,3 +15,12 @@ jobs:
       - run: cargo clippy --all-targets --all-features -- -D warnings
       - run: cargo test --all-targets
       - run: cargo build --release
+
+      - name: Install maturin
+        run: python3 -m pip install --disable-pip-version-check maturin==1.14.0
+
+      - name: Build PyPI wheel
+        run: maturin build --release --bindings bin --compatibility pypi
+
+      - name: Build source distribution
+        run: maturin sdist

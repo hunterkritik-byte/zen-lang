@@ -1,0 +1,12 @@
+[package]
+name = "zen-lang"
+version = "0.1.0"
+edition = "2021"
+description = "The Zen programming language"
+license = "MIT"
+
+[[bin]]
+name = "zen"
+path = "src/main.rs"
+
+[dependencies]

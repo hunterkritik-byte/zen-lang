@@ -24,6 +24,9 @@ pub enum Expr {
     Div(Box<Expr>, Box<Expr>),
     Compare(Box<Expr>, Cmp, Box<Expr>),
     Call(String, Vec<Expr>),
+    // NEW: Closure support
+    Closure { params: Vec<String>, body: Vec<Stmt>, captures: Vec<String> },
+    ClosureCall(Box<Expr>, Vec<Expr>),
 }
 
 #[derive(Debug, Clone, Copy)]

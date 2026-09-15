@@ -1,0 +1,4 @@
+fn main() {
+    let name = "Zen"
+    print("Hello from " + name)
+}

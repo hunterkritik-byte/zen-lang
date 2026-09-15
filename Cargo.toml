@@ -1,12 +1,20 @@
 [package]
 name = "zen-lang"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 description = "The Zen programming language"
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/hunterkritik-byte/zen-lang"
+keywords = ["programming-language", "compiler", "interpreter", "zen"]
+categories = ["compilers"]
 
 [[bin]]
 name = "zen"
 path = "src/main.rs"
+
+[lib]
+name = "zen_lang"
+path = "src/lib.rs"
 
 [dependencies]
